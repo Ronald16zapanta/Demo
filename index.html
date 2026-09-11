@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Records System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="container">
+  <header class="header">
+    <div>
+      <p class="eyebrow">SUPABASE CLOUD DATABASE DEMO</p>
+      <h1>Student Records System</h1>
+      <p class="subtitle">A simple web application connected to a Supabase PostgreSQL database.</p>
+    </div>
+    <div id="connectionStatus" class="status status-offline">
+      <span class="status-dot"></span><span id="statusText">Connecting...</span>
+    </div>
+  </header>
+
+  <section class="stats">
+    <div class="stat-card"><span>Total Students</span><strong id="studentCount">0</strong></div>
+    <div class="stat-card"><span>Realtime</span><strong id="realtimeStatus">Connecting...</strong></div>
+  </section>
+
+  <section class="card">
+    <div class="card-header">
+      <h2 id="formTitle">Register Student</h2>
+      <p>Add a student record to the cloud database.</p>
+    </div>
+
+    <form id="studentForm">
+      <input type="hidden" id="editId">
+      <div class="form-grid">
+        <div class="field"><label for="studentId">Student ID</label><input id="studentId" type="text" placeholder="Student ID" required></div>
+        <div class="field"><label for="fullName">Full Name</label><input id="fullName" type="text" placeholder="Juan Dela Cruz" required></div>
+        <div class="field"><label for="course">Course</label><input id="course" type="text" placeholder="BSIT" required></div>
+        <div class="field">
+          <label for="yearLevel">Year Level</label>
+          <select id="yearLevel" required>
+            <option value="">Select year</option>
+            <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option>
+          </select>
+        </div>
+        <div class="field field-full"><label for="email">Email</label><input id="email" type="email" placeholder="student@example.com" required></div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn primary" type="submit" id="submitBtn">Register Student</button>
+        <button class="btn secondary hidden" type="button" id="cancelBtn">Cancel Edit</button>
+        <button class="btn secondary" type="button" id="refreshBtn">Refresh</button>
+        <button class="btn secondary" type="button" id="exportBtn">Export CSV</button>
+      </div>
+    </form>
+    <p id="message" class="message"></p>
+  </section>
+
+  <section class="card">
+    <div class="table-toolbar">
+      <div><h2>Student Records</h2><p>Changes from Supabase are automatically reflected here.</p></div>
+      <input id="searchInput" class="search" type="search" placeholder="Search student...">
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Student ID</th><th>Full Name</th><th>Course</th><th>Year Level</th><th>Email</th><th>Created</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="studentTableBody"><tr><td colspan="7" class="empty">Loading records...</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer><span>Supabase PostgreSQL + JavaScript</span><span id="lastUpdated">Last updated: --</span></footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
