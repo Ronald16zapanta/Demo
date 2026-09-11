@@ -85,13 +85,13 @@ async function handleSubmit(e){
   await loadStudents();
 }
 window.startEdit=function(id){
-  const s=students.find(x=>x.id===id);if(!s)return;
+  const s=students.find(x=>String(x.id)===String(id));if(!s)return;
   editId.value=s.id;studentId.value=s.student_id;fullName.value=s.full_name;course.value=s.course;yearLevel.value=s.year_level;email.value=s.email;
   formTitle.textContent="Edit Student";submitBtn.textContent="Update Student";cancelBtn.classList.remove("hidden");
   window.scrollTo({top:0,behavior:"smooth"});
 };
 window.deleteStudent=async function(id){
-  const s=students.find(x=>x.id===id);if(!s)return;
+  const s=students.find(x=>String(x.id)===String(id));if(!s)return;
   if(!confirm(`Delete the record of ${s.full_name}?`))return;
   const {data,error}=await db.from("students").delete().eq("id",id).select();
   if(error){console.error(error);setMessage(error.message,true);return}
