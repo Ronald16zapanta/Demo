@@ -93,8 +93,9 @@ window.startEdit=function(id){
 window.deleteStudent=async function(id){
   const s=students.find(x=>x.id===id);if(!s)return;
   if(!confirm(`Delete the record of ${s.full_name}?`))return;
-  const {error}=await db.from("students").delete().eq("id",id);
+  const {data,error}=await db.from("students").delete().eq("id",id).select();
   if(error){console.error(error);setMessage(error.message,true);return}
+  if(!data||data.length===0){setMessage("Delete blocked: no permission to delete this record (check Supabase RLS policy).",true);return}
   setMessage("Student record deleted successfully.",false);await loadStudents();
 };
 function resetForm(){form.reset();editId.value="";formTitle.textContent="Register Student";submitBtn.textContent="Register Student";cancelBtn.classList.add("hidden")}
